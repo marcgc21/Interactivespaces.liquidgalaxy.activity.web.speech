@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<!-- Tested In Chrome. -->
+
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Simple Web Activity Example</title>
+
+    <script type="text/javascript" charset="utf-8" src="js/jquery-1.6.2.min.js"></script>
+	<script src="js/webspeech.js"></script>
+
+	<script type="text/javascript">
+		var ws; 
+		$(document).ready(function () {
+		  ws = new WebSocket("ws://localhost:9000/websocket"); 
+		  ws.onopen = function(event) { 
+		      $('#status').text("The WebSocket Connection Is Open."); 
+		  }
+		  ws.onmessage = function(event) { 
+		      var data = JSON.parse(event.data);
+		      $('#image').attr("src", data.imageUrl);
+		  }
+		  ws.onclose = function(event) { 
+		      $('#status').text("The WebSocket Connection Has Been Closed."); 
+		  }
+		}); 
+
+		function send_voice(name) {
+			console.log(name);
+			var message = JSON.stringify({message: name});
+			ws.send(message);
+		}
+	</script>
+
+</head>
+
+<body>
+
+	<h1>InteractiveSpaces and LiquidGalaxy - WebSpeech API control</h1>
+	<form method="post">
+	<input name="poi" id="input_field" size="100">
+	</form>
+	<button onclick="reco.toggleStartStop()" style="border: 0; background-color:transparent">
+	<img id="status_img" src="img/mic.gif" alt="Start"></button>
+
+</body>
+
+</html>
+
+<script>
+
+var reco = new WebSpeechRecognition();
+reco.statusText('status');
+reco.statusImage('status_img');
+reco.finalResults('input_field');
+
+reco.onEnd = function() {
+  if (reco.final_transcript != '') {
+  	if(reco.final_transcript =="Tierra" || reco.final_transcript =="Luna" || reco.final_transcript =="Marte" || reco.final_transcript =="Earth" || reco.final_transcript =="Moon" || reco.final_transcript =="Mars"){
+  		send_voice("planet="+reco.final_transcript);
+  		}
+  	else{
+		send_voice("search="+reco.final_transcript);
+		}
+  	}
+};
+</script>

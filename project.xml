@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<project type="activity" builder="java">
+    <name>InteractiveSpaces using LiquidGalaxy</name>
+    <description>
+
+    </description>
+
+    <identifyingName>interactivespaces.liquidgalaxy.activity.web.speech</identifyingName>
+    <version>1.0.0</version>
+</project>
