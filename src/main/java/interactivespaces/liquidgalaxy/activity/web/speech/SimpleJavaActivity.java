@@ -83,7 +83,7 @@ public class SimpleJavaActivity extends BaseWebActivity {
 		System.out.println(value);
 		
 		try{
-    		File file= new File("/tmp", "query_php.txt");
+    		File file= new File("/tmp", "query.txt");
           	file.createNewFile();
 
           	FileWriter fw = new FileWriter(file.getAbsoluteFile());
