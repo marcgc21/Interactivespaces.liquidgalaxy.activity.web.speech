@@ -58,12 +58,21 @@ reco.statusImage('status_img');
 reco.finalResults('input_field');
 
 reco.onEnd = function() {
-  if (reco.final_transcript != '') {
-  	if(reco.final_transcript =="Tierra" || reco.final_transcript =="Luna" || reco.final_transcript =="Marte" || reco.final_transcript =="Earth" || reco.final_transcript =="Moon" || reco.final_transcript =="Mars"){
-  		send_voice("planet="+reco.final_transcript);
+	if (reco.final_transcript != '') {
+		if(reco.final_transcript =="Tierra" || reco.final_transcript =="Earth"){
+  			send_voice("planet=earth");
   		}
-  	else{
-		send_voice("search="+reco.final_transcript);
+  		
+  		else if(reco.final_transcript =="Luna" || reco.final_transcript =="Moon"){
+  	  		send_voice("planet=moon");
+   		}
+   		
+  		else if(reco.final_transcript =="Marte" || reco.final_transcript =="Mars"){
+  	  		send_voice("planet=mars");
+  		}
+  		
+  	  	else{
+			send_voice("search="+reco.final_transcript);
 		}
   	}
 };
